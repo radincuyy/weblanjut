@@ -7,7 +7,7 @@ Aplikasi web sederhana berbentuk CRUD dua entitas yang masing-masing tersimpan d
 | Entitas    | Database | Endpoint              |
 |------------|----------|-----------------------|
 | Mahasiswa  | MySQL    | `/api/mahasiswa`      |
-| Buku       | MongoDB  | `/api/buku`           |
+| Film       | MongoDB  | `/api/film`           |
 
 Backend (Express) mengekspos REST API tunggal yang berbicara ke dua database sekaligus, frontend (React) memanggil API tersebut untuk menampilkan dan memanipulasi data.
 
@@ -18,7 +18,7 @@ per12_tugaskelompok/
 ├── backend/        # Express + mysql2 + mongoose
 │   ├── src/
 │   │   ├── config/         # koneksi MySQL & MongoDB
-│   │   ├── controllers/    # mahasiswa (MySQL), buku (MongoDB)
+│   │   ├── controllers/    # mahasiswa (MySQL), film (MongoDB)
 │   │   ├── models/         # mongoose schema
 │   │   ├── routes/
 │   │   └── index.js
@@ -26,7 +26,7 @@ per12_tugaskelompok/
 │   └── .env.example
 └── frontend/       # React (CRA)
     └── src/
-        ├── components/     # MahasiswaPanel, BukuPanel
+        ├── components/     # MahasiswaPanel, FilmPanel
         ├── services/api.js
         └── App.js
 ```
@@ -79,12 +79,12 @@ Frontend berjalan di `http://localhost:3001` (CORS sudah dibuka di backend untuk
 - `PUT    /api/mahasiswa/:id`
 - `DELETE /api/mahasiswa/:id`
 
-### Buku (MongoDB)
-- `GET    /api/buku`              daftar
-- `GET    /api/buku/:id`          detail
-- `POST   /api/buku`              body: `{ judul, penulis, kategori, tahun }`
-- `PUT    /api/buku/:id`
-- `DELETE /api/buku/:id`
+### Film (MongoDB)
+- `GET    /api/film`              daftar
+- `GET    /api/film/:id`          detail
+- `POST   /api/film`              body: `{ judul, sutradara, genre, tahun }`
+- `PUT    /api/film/:id`
+- `DELETE /api/film/:id`
 
 ## Konsep yang Diterapkan
 
@@ -92,5 +92,5 @@ Frontend berjalan di `http://localhost:3001` (CORS sudah dibuka di backend untuk
 - **Frontend-Backend**: React di port 3001 memanggil Express di port 3000 lewat `axios`. CORS dikonfigurasi eksplisit di backend.
 - **Multi Database**: satu aplikasi backend mengelola dua sumber data berbeda secara paralel:
   - **MySQL** (relasional) untuk data mahasiswa via pool `mysql2/promise`.
-  - **MongoDB** (NoSQL) untuk data buku via `mongoose`.
+  - **MongoDB** (NoSQL) untuk data film via `mongoose`.
   Setiap entitas punya controller dan koneksi tersendiri sehingga teknologi DB bisa dipilih sesuai karakter data.
